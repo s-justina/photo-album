@@ -6,7 +6,7 @@ import logoText from "../../assets/love-cat.svg"
 class Header extends Component {
 state = {
     value: "",
-}
+};
     render() {
 
         return (
