@@ -1,0 +1,87 @@
+/*fonts:
+Title:
+font-family: 'Bree Serif', serif;
+Sentence:
+font-family: 'Liu Jian Mao Cao', cursive;
+*/
+
+.container{
+    min-height: 90vh;
+}
+.headerBackground{
+    position: absolute;
+    z-index: -1;
+    height: 100%;
+    width: 100%;
+    background-image: url("../../assets/header-background.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    opacity: 50%;
+}
+.column{
+    float:left;
+    width: 20vw;
+}
+.logotxt{
+    height: 15vh;
+}
+
+.left {
+   text-align: left;
+    margin-top:-3vh;
+    margin-left: -4vw;
+}
+.lowerLogo{
+    margin-top:5vh;
+}
+
+.clearfix::after{
+    content:"";
+    display:block;
+    clear:both;
+}
+.headerWork{
+    margin:20vh auto;
+}
+
+h2.title{
+    margin-bottom: 5vh;
+    text-transform: uppercase;
+    font-family: 'Bree Serif', serif;
+    font-size: 5vh;
+    color: #333
+}
+.sentence{
+    margin:15vh;
+    font-family: 'Liu Jian Mao Cao', cursive;
+}
+.searcher{
+    display:block;
+    position: relative;
+    left: 50vw;
+    transform: translateX(-50%);
+    width: 50vw;
+    height: 30px;
+    padding: 1% 1%;
+    background-color:black;
+    color: #888;
+    opacity: 30%;
+    transition: 0.2s;
+}
+.searcher:hover{
+    opacity:1;
+}
+.btnstyle{
+    margin: 2% auto;
+    padding: 2px 5px;
+    color: #333;
+    background-color: transparent;
+cursor: pointer;
+    transition: 0.2s;
+
+}
+.btnstyle:hover{
+    background-color: white;
+    box-shadow: 0 0 5px 5px #333;
+}
