@@ -13,7 +13,7 @@ state = {
             <React.Fragment>
                 <div className='container'>
                     <div className='headerBackground'/>
-                    <div className="iconContainer">
+                    <div className="clearfix">
                         <div className="column">
                             <img src={logoText} alt="logo-txt" className="logotxt"/>
                         </div>
