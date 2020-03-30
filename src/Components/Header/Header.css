@@ -6,7 +6,9 @@ font-family: 'Liu Jian Mao Cao', cursive;
 */
 
 .container{
-    min-height: 90vh;
+    min-height: 50vh;
+    position:relative;
+    overflow: hidden;
 }
 .headerBackground{
     position: absolute;
@@ -21,19 +23,22 @@ font-family: 'Liu Jian Mao Cao', cursive;
 }
 .column{
     float:left;
-    width: 20vw;
+    position: relative;
+    left: 15px;
+
 }
 .logotxt{
-    height: 15vh;
+    height: 50px;
 }
 
 .left {
-   text-align: left;
-    margin-top:-3vh;
-    margin-left: -4vw;
+position: relative;
+    left: 50px;
+    margin-top:-8px;
+    margin-left: -40px;
 }
 .lowerLogo{
-    margin-top:5vh;
+    margin-top:17px;
 }
 
 .clearfix::after{
@@ -41,27 +46,36 @@ font-family: 'Liu Jian Mao Cao', cursive;
     display:block;
     clear:both;
 }
+.center{
+    width:100%;
+    position:relative;
+}
 .headerWork{
-    margin:20vh auto;
+    margin:10% auto;
+    height: 100%;
+    width: 100%
 }
 
 h2.title{
-    margin-bottom: 5vh;
     text-transform: uppercase;
     font-family: 'Bree Serif', serif;
-    font-size: 5vh;
+    font-size: 5vw;
     color: #333
 }
 .sentence{
-    margin:15vh;
+    margin-top:5vh;
     font-family: 'Liu Jian Mao Cao', cursive;
+    font-size: 3vw;
+}
+.searchBar{
+    margin:10vh;
 }
 .searcher{
     display:block;
     position: relative;
-    left: 50vw;
+    left: 50%;
     transform: translateX(-50%);
-    width: 50vw;
+    width: 60%;
     height: 30px;
     padding: 1% 1%;
     background-color:black;
