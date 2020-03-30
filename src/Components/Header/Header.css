@@ -36,6 +36,11 @@ font-family: 'Liu Jian Mao Cao', cursive;
     margin-top:5vh;
 }
 
+.iconContainer {
+    display: flex;
+    justify-content: left;
+}
+
 .clearfix::after{
     content:"";
     display:block;
