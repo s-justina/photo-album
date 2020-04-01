@@ -10,11 +10,12 @@ class Header extends Component {
     state = {
         value: "",
         searching: false,
+        active:false,
     };
     handleChange = (e) => {
         let value = e.target.value;
         this.setState({
-            value
+            value,
         })
 
     };
@@ -26,10 +27,17 @@ class Header extends Component {
             axios.get(url)
                 .then(response => {
                     //[""0""].previewURL
-                    const catImages = response.data.hits.map(hit => hit.previewURL);
+                    const catImages = response.data.hits.map(hit => {
+                        return {
+                            src: hit.previewURL,
+                            height:1,
+                            width:1
+                        }
+                    } );
                     this.props.saveCatImages(catImages)
                     this.setState({
                         searching: false,
+                        active:false
                     })
                 });
             this.setState({
@@ -37,6 +45,11 @@ class Header extends Component {
             })
         }
 
+    };
+    handleFocus = () => {
+        this.setState({
+            active: true
+        })
     };
 
     render() {
@@ -57,8 +70,9 @@ class Header extends Component {
                         <p className='sentence'><span>"Najmarniejszy kot jest arcydziełem."</span> - Leonardo da Vinci
                         </p>
                         <div className='searchBar'>
-                            <input type="text" placeholder="wpisz frazę..." className='searcher'
-                                   onChange={this.handleChange}/>
+                            <input type="text" placeholder="wpisz frazę..." className={"searcher " + (this.state.active ? "active": 'none')}
+                                   onFocus={this.handleFocus}
+                                   onChange={this.handleChange} />
                             <button className='btnstyle' onClick={this.handleClick}>Znajdź</button>
                         </div>
                     </div>

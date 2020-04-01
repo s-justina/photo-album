@@ -86,6 +86,11 @@ h2.title{
 .searcher:hover{
     opacity:1;
 }
+
+.active{
+    opacity:1;
+}
+
 .btnstyle{
     margin: 2% auto;
     padding: 2px 5px;
@@ -99,3 +104,4 @@ cursor: pointer;
     background-color: white;
     box-shadow: 0 0 5px 5px #333;
 }
+

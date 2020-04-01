@@ -1,0 +1,15 @@
+.footerContainer{
+    position: relative;
+    text-align: center;
+    line-height: 15px;
+    background-color: black;
+}
+.text{
+    font-size: 10px;
+    color: #999
+}
+.logoPixa{
+    position: relative;
+    top: 2px;
+    height: 10px;
+}
