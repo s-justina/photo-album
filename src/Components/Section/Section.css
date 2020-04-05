@@ -1,3 +1,7 @@
+/*Fonts:
+Tags:
+font-family: 'Open Sans', sans-serif;*/
+
 .sectionContainer{
 margin: 0;
     width: 100%;
@@ -26,17 +30,39 @@ h2{
     box-shadow: 0 2px 5px 2px #333;
     transition:  1s ease;
 }
-
 .hiddenStripe {
     position: absolute;
-    bottom: -15px;
-    height: 4vw;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 0;
     width: 100%;
+    overflow: hidden;
     background: linear-gradient(to top,rgba(0,0,0,.6) 0,rgba(0,0,0,0) 100%);
-    opacity: 0;
-    transition:  1s ease;
+    transition:  .5s ease;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: nowrap;
 }
 .albumImageStyle:hover .hiddenStripe{
-     opacity: 1;
-     bottom:0;
+     height: 30%;
  }
+.tags{
+    padding-top: 15px;
+    padding-left: 3px;
+    text-align: left;
+    line-height: 13px;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 13px;
+    color: white;
+    text-transform: capitalize;
+}
+.likes{
+    padding-top: 15px;
+    padding-right: 3px;
+    text-align: right;
+    line-height: 13px;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 13px;
+    color: white;
+}

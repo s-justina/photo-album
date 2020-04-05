@@ -31,7 +31,9 @@ class Header extends Component {
                         return {
                             src: hit.previewURL,
                             height:1,
-                            width:1
+                            width:1,
+                            tags: hit.tags,
+                            likes: hit.likes,
                         }
                     } );
                     this.props.saveCatImages(catImages)

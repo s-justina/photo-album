@@ -7,7 +7,6 @@ class Section extends Component {
     state = {
         currentImage: "",
         viewerIsOpen: false,
-        mouseOver: false,
     };
     renderImg = () => {
         return this.props.catImages.map((catImage, index) => {
@@ -20,24 +19,15 @@ class Section extends Component {
                     backgroundSize: 'contain',
                     backgroundPosition: 'center',
                 }}
-                onMouseOver={() =>{
-                    this.setState({
-                        mouseOver: index,
-                    })
-                }}
-                onMouseOut={()=>{
-                    this.setState({
-                        mouseOver: false,
-                    })
-                }}
                 className='albumImageStyle'
                 onClick={()=>{this.setState({viewerIsOpen: true, currentImage: index})}}>
-                {this.state.mouseOver === index ? <div
-                    className='hiddenStripe'/> : null }
-
-
-            </div>
-
+                <div className='hiddenStripe'>
+                    <p className="tags">
+                        {catImage.tags.split(',').join(' ')}
+                    </p>
+                    <p className='likes'>{catImage.likes}</p>
+                </div>
+                </div>
             </React.Fragment>
 
         })
@@ -47,7 +37,7 @@ class Section extends Component {
         this.setState({
             viewerIsOpen:false,
         })
-    }
+    };
 
     render() {
         return (
