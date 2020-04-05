@@ -33,7 +33,7 @@ class Section extends Component {
                 className='albumImageStyle'
                 onClick={()=>{this.setState({viewerIsOpen: true, currentImage: index})}}>
                 {this.state.mouseOver === index ? <div
-                    className='hiddenStripe translate'/> : null }
+                    className='hiddenStripe'/> : null }
 
 
             </div>

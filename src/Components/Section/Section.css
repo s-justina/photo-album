@@ -19,38 +19,24 @@ h2{
     flex-shrink:0;
 }
 .albumImageStyle{
+    position: relative;
     margin-top: 10px;
     height: 20vw;
     width: 30vw;
     box-shadow: 0 2px 5px 2px #333;
+    transition:  1s ease;
 }
+
 .hiddenStripe {
     position: absolute;
     bottom: -15px;
     height: 4vw;
     width: 100%;
     background: linear-gradient(to top,rgba(0,0,0,.6) 0,rgba(0,0,0,0) 100%);
-    opacity: 1;
-    transition: 1s;
-    /*animation: 1s slide-up;*/
+    opacity: 0;
+    transition:  1s ease;
 }
-.translate{
-    transform: translateY(-15px);
-}
-/*@keyframes slide-up {*/
-/*   0% {*/
-/*        bottom: -15px;*/
-/*    }*/
-/*50% {*/
-/*        bottom: -3px;*/
-
-/*    }*/
-/*    90%{*/
-/*        bottom: -2px;*/
-/*        opacity: 1;*/
-/*    }*/
-/*    100%{*/
-/*        bottom: 0;*/
-/*        opacity: 1;*/
-/*    }*/
-/*}*/
+.albumImageStyle:hover .hiddenStripe{
+     opacity: 1;
+     bottom:0;
+ }
