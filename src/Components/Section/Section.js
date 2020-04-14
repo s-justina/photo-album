@@ -2,7 +2,10 @@
 import React, {Component} from 'react'
 import './Section.css'
 import Carousel, {Modal, ModalGateway} from "react-images";
-
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faThumbsUp } from '@fortawesome/free-solid-svg-icons'
+// < i
+// className = "fas fa-thumbs-up" > < /i>
 class Section extends Component {
     state = {
         currentImage: "",
@@ -22,10 +25,15 @@ class Section extends Component {
                 className='albumImageStyle'
                 onClick={()=>{this.setState({viewerIsOpen: true, currentImage: index})}}>
                 <div className='hiddenStripe'>
+                    <div className='PositionOnTheHiddenStripe'>
                     <p className="tags">
                         {catImage.tags.split(',').join(' ')}
                     </p>
+                    <div className='containerForLikes'>
+                    <FontAwesomeIcon className='icon' icon={faThumbsUp} />
                     <p className='likes'>{catImage.likes}</p>
+                    </div>
+                </div>
                 </div>
                 </div>
             </React.Fragment>

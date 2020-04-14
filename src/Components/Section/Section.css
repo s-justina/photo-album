@@ -40,29 +40,37 @@ h2{
     overflow: hidden;
     background: linear-gradient(to top,rgba(0,0,0,.6) 0,rgba(0,0,0,0) 100%);
     transition:  .5s ease;
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: nowrap;
 }
 .albumImageStyle:hover .hiddenStripe{
      height: 30%;
  }
+.PositionOnTheHiddenStripe{
+    margin-top: 10%;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: nowrap;
+}
 .tags{
-    padding-top: 15px;
-    padding-left: 3px;
+    margin-left: 3px;
     text-align: left;
     line-height: 13px;
     font-family: 'Open Sans', sans-serif;
-    font-size: 13px;
+    font-size: 1vw;
     color: white;
     text-transform: capitalize;
 }
+.containerForLikes{
+    display: flex;
+    margin-right: 3px;
+}
 .likes{
-    padding-top: 15px;
-    padding-right: 3px;
-    text-align: right;
+    margin-left: 3px;
     line-height: 13px;
     font-family: 'Open Sans', sans-serif;
-    font-size: 13px;
+    font-size: 1vw;
+    color: white;
+}
+.icon{
+    font-size: 1vw;
     color: white;
 }

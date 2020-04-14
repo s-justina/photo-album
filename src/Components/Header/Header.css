@@ -77,7 +77,8 @@ h2.title{
     transform: translateX(-50%);
     width: 60%;
     height: 30px;
-    padding: 1% 1%;
+    padding: 1vw;
+    font-size: 1.5vw;
     background-color:black;
     color: #888;
     opacity: 30%;
@@ -94,6 +95,7 @@ h2.title{
 .btnstyle{
     margin: 2% auto;
     padding: 2px 5px;
+    font-size: 1.5vw;
     color: #333;
     background-color: transparent;
 cursor: pointer;
