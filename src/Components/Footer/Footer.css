@@ -1,0 +1,17 @@
+.footerContainer{
+    position: relative;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    text-align: center;
+    line-height: 2vw;
+    background-color: black;
+}
+.text{
+    font-size: 1vw;
+    color: #999
+}
+.logoPixa{
+    position: relative;
+    top: 2px;
+    height: 1vw;
+}
