@@ -26,7 +26,6 @@ class Header extends Component {
             const url = `https://pixabay.com/api/?key=${API_KEY}&q=${this.state.value}&image_type=photo&page=${randomPage}`;
             axios.get(url)
                 .then(response => {
-                    //[""0""].previewURL
                     const catImages = response.data.hits.map(hit => {
                         return {
                             src: hit.previewURL,

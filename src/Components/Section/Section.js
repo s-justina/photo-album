@@ -56,7 +56,6 @@ class Section extends Component {
                         {this.state.viewerIsOpen ? (
                             <Modal onClose={this.closeLightbox}>
                                 <Carousel
-                                    // frameProps={{autoSize:true}}
                                     currentIndex={this.state.currentImage}
                                     views={this.props.catImages.map(x => ({
                                         ...x,
