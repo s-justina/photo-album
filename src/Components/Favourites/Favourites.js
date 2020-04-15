@@ -4,13 +4,21 @@ import {Link} from "react-router-dom";
 import Section from "../Section/Section";
 import logoText from "../../assets/love-cat.svg";
 import logoImage from "../../assets/cat-logo.svg";
+import {loadFavouriteImages} from "../../Utils/Functions";
+
 
 class Favourites extends Component {
     state = {
         catImages: [],
-    }
+    };
+    updateParent = () => {
+        this.setState({
+            rerender: !this.state.rerender
+        })
+    };
 
     render() {
+        const favouriteImages = loadFavouriteImages();
 
         return (
             <React.Fragment>
@@ -26,8 +34,8 @@ class Favourites extends Component {
                     <Link to="/" className='pathToHome'>Home</Link>
 
                 </div>
-                {/*<Section catImages={this.state.catImages}></Section>*/}
                 <h2 className='title'>Twoje ulubione</h2>
+                <Section updateParent={this.updateParent} catImages={favouriteImages}></Section>
             </React.Fragment>
 
         )

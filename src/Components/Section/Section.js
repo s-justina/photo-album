@@ -5,18 +5,20 @@ import Carousel, {Modal, ModalGateway} from "react-images";
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {faThumbsUp, faHeart as solidHeart} from '@fortawesome/free-solid-svg-icons'
 import {faHeart as regularHeart} from '@fortawesome/free-regular-svg-icons'
-// < i
-// className = "fas fa-thumbs-up" > < /i>
+import ls from 'local-storage';
+import {loadFavouriteImages} from "../../Utils/Functions";
+import swal from 'sweetalert';
+
 class Section extends Component {
     state = {
         currentImage: "",
         viewerIsOpen: false,
         imagesLiked: [],
     };
-    renderImg = () => {
-        return this.props.catImages.map((catImage, index) => {
-            return <React.Fragment key={index}>
-                <div
+
+    renderImg = (catImages) => {
+        return catImages.map((catImage, index) => {
+            return <div
                     style={{
                         position: 'relative',
                         backgroundImage: `url(${catImage.src})`,
@@ -34,49 +36,76 @@ class Section extends Component {
                                 {catImage.tags.split(',').join(' ')}
                             </p>
                             <div className='containerForLikes'>
-                                <FontAwesomeIcon onClick={(e)=>this.onHeartClick(e,index)}
+                                {/*{console.log('be4: ', catImage)}*/}
+                                <FontAwesomeIcon onClick={(e) => this.onHeartClick(e, index, catImage)}
                                                  className='icon iconAnimation'
-                                                 icon={this.state.imagesLiked.includes(index) ? solidHeart : regularHeart}/>
+                                                 icon={(() => {
+                                                     return catImage.isFavourite ? solidHeart : regularHeart
+                                                 })()}/>
                                 <FontAwesomeIcon className='icon' icon={faThumbsUp}/>
                                 <p className='likes'>{catImage.likes}</p>
                             </div>
                         </div>
                     </div>
                 </div>
-            </React.Fragment>
-
         })
 
     };
+
     closeLightbox = () => {
         this.setState({
             viewerIsOpen: false,
         })
     };
-    onHeartClick = (e,index) => {
+    onHeartClick = (e, index, catImage) => {
         e.stopPropagation();
-        //warunek jeśli nie ma w tablicy to dodaj
-        //jeśli jest to usuń
-        if(!this.state.imagesLiked.includes(index)){
+        const favouriteImages = loadFavouriteImages();
+        if (!catImage.isFavourite) {
             this.setState({
-                imagesLiked: [...this.state.imagesLiked,index]
-            })
+                imagesLiked: [...this.state.imagesLiked, index]
+            });
+            catImage.isFavourite = true;
+            ls.set('FavouriteImages', [...favouriteImages, catImage])
         } else {
-            this.setState({
-                // image liked index
-                imagesLiked: this.state.imagesLiked.filter((imageLiked)=>imageLiked !== index )
-                })
+            swal({
+                title: "Are you sure?",
+                text: "Once deleted, you will not be able to recover this imaginary file!",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+            })
+                .then((willDelete) => {
+                    if (willDelete) {
+                        this.setState({
+                            // image liked index
+                            imagesLiked: this.state.imagesLiked.filter((imageLiked) => imageLiked !== index)
+                        });
+                        catImage.isFavourite = false;
+                        const filteredFavouriteImages = favouriteImages.filter(favouriteImage => favouriteImage.src !== catImage.src)
+                        ls.set('FavouriteImages', filteredFavouriteImages)
+                        swal("Poof! Your imaginary file has been deleted!", {
+                            icon: "success",
+                        });
+                        setTimeout(() => {
+                            this.setState({
+                                rerender: !this.state.rerender
+                            })
+                        })
+                    } else {
+                        swal("Your imaginary file is safe!");
+                    }
+                });
+
         }
 
     };
 
     render() {
+        // console.log('rerender: ', this.props.catImages);
         return (
             <React.Fragment>
                 <section className='sectionContainer'>
-                    {this.props.catImages <= 0 ? null :
-                        <div><h4>Jeżeli chcesz lepiej przyjrzeć się zdjęciu, kliknij je</h4> <h2>Wyniki
-                            wyszukiwania:</h2></div>}
+
                     <ModalGateway>
                         {this.state.viewerIsOpen ? (
                             <Modal onClose={this.closeLightbox}>
@@ -92,7 +121,8 @@ class Section extends Component {
                         ) : null}
                     </ModalGateway>
                     <div className='imgContainer'>
-                        {this.props.catImages.length > 0 ? this.renderImg() : null}
+                        {/*{console.log('sadjaslfj: ', this.props.catImages)}*/}
+                        {this.props.catImages.length > 0 ? this.renderImg(this.props.catImages) : null}
                     </div>
                 </section>
             </React.Fragment>
