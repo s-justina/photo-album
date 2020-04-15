@@ -64,13 +64,19 @@ h2{
     margin-right: 3px;
 }
 .likes{
-    margin-left: 3px;
     line-height: 13px;
     font-family: 'Open Sans', sans-serif;
     font-size: 1vw;
     color: white;
 }
 .icon{
+    margin-right: 3px;
+    margin-left: 8px;
     font-size: 1vw;
     color: white;
+    transition: 0.3s;
+}
+.iconAnimation:hover{
+    transform: scale(2,2);
+    cursor: pointer;
 }

@@ -2,39 +2,46 @@
 import React, {Component} from 'react'
 import './Section.css'
 import Carousel, {Modal, ModalGateway} from "react-images";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faThumbsUp } from '@fortawesome/free-solid-svg-icons'
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
+import {faThumbsUp, faHeart as solidHeart} from '@fortawesome/free-solid-svg-icons'
+import {faHeart as regularHeart} from '@fortawesome/free-regular-svg-icons'
 // < i
 // className = "fas fa-thumbs-up" > < /i>
 class Section extends Component {
     state = {
         currentImage: "",
         viewerIsOpen: false,
+        imagesLiked: [],
     };
     renderImg = () => {
         return this.props.catImages.map((catImage, index) => {
             return <React.Fragment key={index}>
-            <div
-                style={{
-                    position: 'relative',
-                    backgroundImage: `url(${catImage.src})`,
-                    backgroundRepeat: 'no-repeat',
-                    backgroundSize: 'contain',
-                    backgroundPosition: 'center',
-                }}
-                className='albumImageStyle'
-                onClick={()=>{this.setState({viewerIsOpen: true, currentImage: index})}}>
-                <div className='hiddenStripe'>
-                    <div className='PositionOnTheHiddenStripe'>
-                    <p className="tags">
-                        {catImage.tags.split(',').join(' ')}
-                    </p>
-                    <div className='containerForLikes'>
-                    <FontAwesomeIcon className='icon' icon={faThumbsUp} />
-                    <p className='likes'>{catImage.likes}</p>
+                <div
+                    style={{
+                        position: 'relative',
+                        backgroundImage: `url(${catImage.src})`,
+                        backgroundRepeat: 'no-repeat',
+                        backgroundSize: 'contain',
+                        backgroundPosition: 'center',
+                    }}
+                    className='albumImageStyle'
+                    onClick={() => {
+                        this.setState({viewerIsOpen: true, currentImage: index})
+                    }}>
+                    <div className='hiddenStripe'>
+                        <div className='PositionOnTheHiddenStripe'>
+                            <p className="tags">
+                                {catImage.tags.split(',').join(' ')}
+                            </p>
+                            <div className='containerForLikes'>
+                                <FontAwesomeIcon onClick={(e)=>this.onHeartClick(e,index)}
+                                                 className='icon iconAnimation'
+                                                 icon={this.state.imagesLiked.includes(index) ? solidHeart : regularHeart}/>
+                                <FontAwesomeIcon className='icon' icon={faThumbsUp}/>
+                                <p className='likes'>{catImage.likes}</p>
+                            </div>
+                        </div>
                     </div>
-                </div>
-                </div>
                 </div>
             </React.Fragment>
 
@@ -43,15 +50,33 @@ class Section extends Component {
     };
     closeLightbox = () => {
         this.setState({
-            viewerIsOpen:false,
+            viewerIsOpen: false,
         })
+    };
+    onHeartClick = (e,index) => {
+        e.stopPropagation();
+        //warunek jeśli nie ma w tablicy to dodaj
+        //jeśli jest to usuń
+        if(!this.state.imagesLiked.includes(index)){
+            this.setState({
+                imagesLiked: [...this.state.imagesLiked,index]
+            })
+        } else {
+            this.setState({
+                // image liked index
+                imagesLiked: this.state.imagesLiked.filter((imageLiked)=>imageLiked !== index )
+                })
+        }
+
     };
 
     render() {
         return (
             <React.Fragment>
                 <section className='sectionContainer'>
-                    {this.props.catImages <= 0 ? null : <h2>Wyniki wyszukiwania:</h2>}
+                    {this.props.catImages <= 0 ? null :
+                        <div><h4>Jeżeli chcesz lepiej przyjrzeć się zdjęciu, kliknij je</h4> <h2>Wyniki
+                            wyszukiwania:</h2></div>}
                     <ModalGateway>
                         {this.state.viewerIsOpen ? (
                             <Modal onClose={this.closeLightbox}>
