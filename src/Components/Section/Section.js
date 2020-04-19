@@ -8,6 +8,8 @@ import {faHeart as regularHeart} from '@fortawesome/free-regular-svg-icons'
 import ls from 'local-storage';
 import {loadFavouriteImages} from "../../Utils/Functions";
 import swal from 'sweetalert';
+import {connect} from "react-redux";
+import {firstSearch} from "../../redux/actions";
 
 class Section extends Component {
     state = {
@@ -15,44 +17,54 @@ class Section extends Component {
         viewerIsOpen: false,
         imagesLiked: [],
     };
-componentDidMount() {
-    // window.addEventListener('resize', (e)=>console.log(e));
-    console.log(window.document.body.offsetHeight)
-    window.scrollBy(0, window.innerHeight);
-}
+
+    componentDidMount() {
+        console.log(this.props);
+        if (this.props.isFavouritePage || this.props.firstSearchDone) {
+            return
+        }
+        window.scrollBy(0, window.innerHeight);
+        this.props.firstSearch()
+    }
+
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        const currentY = window.scrollY;
+        window.scrollBy(0, window.innerHeight - currentY);
+    }
 
     renderImg = (catImages) => {
         return catImages.map((catImage, index) => {
             return <div
-                    style={{
-                        position: 'relative',
-                        backgroundImage: `url(${catImage.src})`,
-                        backgroundRepeat: 'no-repeat',
-                        backgroundSize: 'contain',
-                        backgroundPosition: 'center',
-                    }}
-                    className='albumImageStyle'
-                    onClick={() => {
-                        this.setState({viewerIsOpen: true, currentImage: index})
-                    }}>
-                    <div className='hiddenStripe'>
-                        <div className='PositionOnTheHiddenStripe'>
-                            <p className="tags">
-                                {catImage.tags.split(',').join(' ')}
-                            </p>
-                            <div className='containerForLikes'>
-                                {/*{console.log('be4: ', catImage)}*/}
-                                <FontAwesomeIcon onClick={(e) => this.onHeartClick(e, index, catImage)}
-                                                 className='icon iconAnimation'
-                                                 icon={(() => {
-                                                     return catImage.isFavourite ? solidHeart : regularHeart
-                                                 })()}/>
-                                <FontAwesomeIcon className='icon' icon={faThumbsUp}/>
-                                <p className='likes'>{catImage.likes}</p>
-                            </div>
+                key={index}
+                style={{
+                    position: 'relative',
+                    backgroundImage: `url(${catImage.src})`,
+                    backgroundRepeat: 'no-repeat',
+                    backgroundSize: 'contain',
+                    backgroundPosition: 'center',
+                }}
+                className='albumImageStyle'
+                onClick={() => {
+                    this.setState({viewerIsOpen: true, currentImage: index})
+                }}>
+                <div className='hiddenStripe'>
+                    <div className='PositionOnTheHiddenStripe'>
+                        <p className="tags">
+                            {catImage.tags.split(',').join(' ')}
+                        </p>
+                        <div className='containerForLikes'>
+                            {/*{console.log('be4: ', catImage)}*/}
+                            <FontAwesomeIcon onClick={(e) => this.onHeartClick(e, index, catImage)}
+                                             className='icon iconAnimation'
+                                             icon={(() => {
+                                                 return catImage.isFavourite ? solidHeart : regularHeart
+                                             })()}/>
+                            <FontAwesomeIcon className='icon' icon={faThumbsUp}/>
+                            <p className='likes'>{catImage.likes}</p>
                         </div>
                     </div>
                 </div>
+            </div>
         })
 
     };
@@ -92,10 +104,9 @@ componentDidMount() {
                             icon: "success",
                         });
                         setTimeout(() => {
-                            this.setState({
-                                rerender: !this.state.rerender
-                            })
-                        })
+                            this.props.updateParent()
+                        });
+
                     } else {
                         swal("Twój kot jest bezpieczny!");
                     }
@@ -135,4 +146,18 @@ componentDidMount() {
     }
 }
 
-export default Section
+// export default Section
+
+const mapStateToProps = (state) => {
+    console.log(state);
+    return {
+        firstSearchDone: state.firstSearchDone // (1)
+    }
+};
+const mapDispatchToProps = (dispatch) => {
+    return {
+        firstSearch: () => dispatch(firstSearch()   )
+    }
+};
+export const SectionContainer = connect(mapStateToProps, mapDispatchToProps)(Section); // (3)
+export default SectionContainer

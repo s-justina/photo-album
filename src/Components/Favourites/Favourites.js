@@ -37,7 +37,7 @@ class Favourites extends Component {
 
                 </div>
                 <h2 className='title'>Twoje ulubione</h2>
-                <Section updateParent={this.updateParent} catImages={favouriteImages}></Section>
+                <Section isFavouritePage={true} updateParent={this.updateParent} catImages={favouriteImages}></Section>
                 <Footer/>
                 </div>
             </React.Fragment>

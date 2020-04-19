@@ -22,7 +22,7 @@ class Header extends Component {
     handleClick = (e) => {
 
         if (this.state.value.length !== 0) {
-            const randomPage = Math.floor(Math.random()*10 + 1)
+            const randomPage = Math.floor(Math.random()*10 + 1);
             const url = `https://pixabay.com/api/?key=${API_KEY}&q=${this.state.value}&image_type=photo&page=${randomPage}`;
             axios.get(url)
                 .then(response => {
@@ -35,7 +35,7 @@ class Header extends Component {
                             likes: hit.likes,
                         }
                     } );
-                    this.props.saveCatImages(catImages)
+                    this.props.saveCatImages(catImages);
                     this.setState({
                         searching: false,
                         active:false
@@ -47,11 +47,13 @@ class Header extends Component {
         }
 
     };
-    handleFocus = () => {
-        this.setState({
-            active: true
-        })
-    };
+    handleEnter = (e)=>{
+        // if (e.keyCode === 13) {
+        //     document.getElementById("myBtn").click();
+        // }
+        if (this.state.value.length !== 0 && e.keyCode === 13) {
+            this.handleClick()
+    }};
 
     render() {
         return (
@@ -73,8 +75,9 @@ class Header extends Component {
                         <div className='searchBar'>
                             <input type="text" placeholder="wpisz frazę..." className={"searcher " + (this.state.active ? "active": 'none')}
                                    onFocus={this.handleFocus}
-                                   onChange={this.handleChange} />
-                            <button className='btnstyle' onClick={this.handleClick}>Znajdź</button>
+                                   onChange={this.handleChange}
+                                   onKeyUp={this.handleEnter}/>
+                            <button className='btnstyle' onClick={this.handleClick} >Znajdź</button>
                         </div>
                     </div>
                 </div>

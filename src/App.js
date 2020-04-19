@@ -5,6 +5,7 @@ import Section from "./Components/Section/Section";
 import Footer from "./Components/Footer/Footer";
 import {BrowserRouter, Route, NavLink, Link, Switch} from 'react-router-dom';
 import Favourites from "./Components/Favourites/Favourites";
+import { connect } from "react-redux";
 
 
 class App extends React.Component {
@@ -19,8 +20,8 @@ class App extends React.Component {
 
     render() {
         const SectionHeader = (this.state.catImages <= 0 ? null : (
-                <div>
-                    <div className='sectionHeaderStyle'><h4 className='specialInformation'>Jeżeli chcesz lepiej
+                <div className='sectionHeaderStyle'>
+                    <div ><h4 className='specialInformation'>Jeżeli chcesz lepiej
                         przyjrzeć się zdjęciu, kliknij je</h4> <h2>Wyniki
                         wyszukiwania:</h2></div>
                     <Section catImages={this.state.catImages}/>
@@ -46,4 +47,12 @@ class App extends React.Component {
     }
 }
 
-export default App;
+const mapStateToProps = (state) => {
+    console.log(state);
+    return {
+        firstSearchDone: state.firstSearchDone // (1)
+    }
+};
+
+export const AppContainer = connect(mapStateToProps, null)(App); // (3)
+export default AppContainer
