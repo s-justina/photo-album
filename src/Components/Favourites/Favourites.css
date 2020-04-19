@@ -1,6 +1,12 @@
 /*fonts:
 Button Favourites:
 font-family: 'Lobster', cursive;*/
+.backgroundFavourites{
+    min-height: 100vh;
+    background-image: url("../../assets/wall.jpg");
+    /*overflow: hidden;*/
+}
+
 .clearfix::after{
     content:"";
     display:block;
@@ -34,10 +40,10 @@ font-family: 'Lobster', cursive;*/
     margin-top: 5%;
     text-align: center;
 }
-.pathToHome{
+.btnPath{
     position: absolute;
     top:17px;
-    left: 90%;
+    right: 5%;
     padding: 0.5% 2%;
     border: 2px dotted #333;
     font-family: 'Lobster', cursive;
@@ -47,3 +53,8 @@ font-family: 'Lobster', cursive;*/
     color: #333;
 }
 
+.footerAbsolute{
+ height: 50px;
+    width: 100%;
+    background-color: yellow;
+}

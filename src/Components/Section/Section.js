@@ -15,6 +15,11 @@ class Section extends Component {
         viewerIsOpen: false,
         imagesLiked: [],
     };
+componentDidMount() {
+    // window.addEventListener('resize', (e)=>console.log(e));
+    console.log(window.document.body.offsetHeight)
+    window.scrollBy(0, window.innerHeight);
+}
 
     renderImg = (catImages) => {
         return catImages.map((catImage, index) => {
@@ -68,8 +73,8 @@ class Section extends Component {
             ls.set('FavouriteImages', [...favouriteImages, catImage])
         } else {
             swal({
-                title: "Are you sure?",
-                text: "Once deleted, you will not be able to recover this imaginary file!",
+                title: "Jesteś pewien?",
+                text: "Jeśli wciśniesz przycisk 'cancel', spowoduje to że kot ucieknie z ulubionych!",
                 icon: "warning",
                 buttons: true,
                 dangerMode: true,
@@ -82,8 +87,8 @@ class Section extends Component {
                         });
                         catImage.isFavourite = false;
                         const filteredFavouriteImages = favouriteImages.filter(favouriteImage => favouriteImage.src !== catImage.src)
-                        ls.set('FavouriteImages', filteredFavouriteImages)
-                        swal("Poof! Your imaginary file has been deleted!", {
+                        ls.set('FavouriteImages', filteredFavouriteImages);
+                        swal("Poof! Kotek uciekł!", {
                             icon: "success",
                         });
                         setTimeout(() => {
@@ -92,7 +97,7 @@ class Section extends Component {
                             })
                         })
                     } else {
-                        swal("Your imaginary file is safe!");
+                        swal("Twój kot jest bezpieczny!");
                     }
                 });
 

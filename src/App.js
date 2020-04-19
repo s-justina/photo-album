@@ -15,13 +15,17 @@ class App extends React.Component {
         this.setState({
             catImages: images,
         })
-    }
+    };
 
     render() {
-        const SectionHeader = (this.state.catImages <= 0 ? null :
-            <div><h4>Jeżeli chcesz lepiej przyjrzeć się zdjęciu, kliknij je</h4> <h2>Wyniki
-                wyszukiwania:</h2></div>);
-
+        const SectionHeader = (this.state.catImages <= 0 ? null : (
+                <div>
+                    <div className='sectionHeaderStyle'><h4 className='specialInformation'>Jeżeli chcesz lepiej
+                        przyjrzeć się zdjęciu, kliknij je</h4> <h2>Wyniki
+                        wyszukiwania:</h2></div>
+                    <Section catImages={this.state.catImages}/>
+                </div>)
+        );
         return (
             <BrowserRouter>
                 <Switch>
@@ -31,9 +35,8 @@ class App extends React.Component {
                     <Route path="/" exact>
                         <div className="App">
                             <Header saveCatImages={this.saveCatImages}/>
-                            <Link to="/favourites">Favourites</Link>
+                            <Link to="/favourites" className='btnPath'>Ulubione</Link>
                             {SectionHeader}
-                            <Section catImages={this.state.catImages}/>
                             <Footer/>
                         </div>
                     </Route>

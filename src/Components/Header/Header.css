@@ -6,7 +6,7 @@ font-family: 'Liu Jian Mao Cao', cursive;
 */
 
 .container{
-    min-height: 50vh;
+    min-height:100vh;
     position:relative;
     overflow: hidden;
 }
@@ -51,19 +51,19 @@ position: relative;
     position:relative;
 }
 .headerWork{
-    margin:10% auto;
+    margin:5% auto;
     height: 100%;
     width: 100%
 }
 
-h2.title{
+h2.albumTitle{
     text-transform: uppercase;
     font-family: 'Bree Serif', serif;
-    font-size: 5vw;
+    font-size: 7vw;
     color: #333
 }
 .sentence{
-    margin-top:5vh;
+    margin-top:6vh;
     font-family: 'Liu Jian Mao Cao', cursive;
     font-size: 3vw;
 }
@@ -76,9 +76,9 @@ h2.title{
     left: 50%;
     transform: translateX(-50%);
     width: 60%;
-    height: 30px;
+    height: 40px;
     padding: 1vw;
-    font-size: 1.5vw;
+    font-size: 2vw;
     background-color:black;
     color: #888;
     opacity: 30%;
@@ -95,7 +95,7 @@ h2.title{
 .btnstyle{
     margin: 2% auto;
     padding: 2px 5px;
-    font-size: 1.5vw;
+    font-size: 2vw;
     color: #333;
     background-color: transparent;
 cursor: pointer;

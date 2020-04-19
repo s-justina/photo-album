@@ -67,7 +67,7 @@ class Header extends Component {
                         </div>
                     </div>
                     <div className='headerWork'>
-                        <h2 className="title">cats photo gallery</h2>
+                        <h2 className="albumTitle">galeria kotów</h2>
                         <p className='sentence'><span>"Najmarniejszy kot jest arcydziełem."</span> - Leonardo da Vinci
                         </p>
                         <div className='searchBar'>

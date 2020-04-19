@@ -5,6 +5,7 @@ import Section from "../Section/Section";
 import logoText from "../../assets/love-cat.svg";
 import logoImage from "../../assets/cat-logo.svg";
 import {loadFavouriteImages} from "../../Utils/Functions";
+import Footer from "../Footer/Footer";
 
 
 class Favourites extends Component {
@@ -22,6 +23,7 @@ class Favourites extends Component {
 
         return (
             <React.Fragment>
+                <div  className='backgroundFavourites'>
                 <div>
                     <div className="clearfix center">
                         <div className="column">
@@ -31,11 +33,13 @@ class Favourites extends Component {
                             <img src={logoImage} alt="logo" className="logotxt lowerLogo"/>
                         </div>
                     </div>
-                    <Link to="/" className='pathToHome'>Home</Link>
+                    <Link to="/" className='btnPath'>Wróć</Link>
 
                 </div>
                 <h2 className='title'>Twoje ulubione</h2>
                 <Section updateParent={this.updateParent} catImages={favouriteImages}></Section>
+                <Footer/>
+                </div>
             </React.Fragment>
 
         )
