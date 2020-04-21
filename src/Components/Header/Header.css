@@ -10,7 +10,7 @@ font-family: 'Liu Jian Mao Cao', cursive;
     position:relative;
     overflow: hidden;
 }
-.headerBackground{
+.headerBackgroundMain{
     position: absolute;
     z-index: -1;
     height: 100%;

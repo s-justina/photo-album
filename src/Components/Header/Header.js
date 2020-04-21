@@ -59,7 +59,7 @@ class Header extends Component {
         return (
             <React.Fragment>
                 <div className='container'>
-                    <div className='headerBackground'/>
+                    <div className='headerBackgroundMain'/>
                     <div className="clearfix center">
                         <div className="column">
                             <img src={logoText} alt="logo-txt" className="logotxt"/>
