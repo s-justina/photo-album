@@ -28,12 +28,12 @@ class App extends React.Component {
                 </div>)
         );
         return (
-            <BrowserRouter>
+            <BrowserRouter basename={window.location.pathname || ''}>
                 <Switch>
-                    <Route path="/favourites">
+                    <Route exact path="/favourites">
                         <Favourites/>
                     </Route>
-                    <Route path="/" exact>
+                    <Route exact path="/">
                         <div className="App">
                             <Header saveCatImages={this.saveCatImages}/>
                             <Link to="/favourites" className='btnPath'>Ulubione</Link>
