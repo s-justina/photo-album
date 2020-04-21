@@ -3,25 +3,56 @@ import './App.css';
 import Header from "./Components/Header/Header";
 import Section from "./Components/Section/Section";
 import Footer from "./Components/Footer/Footer";
+import {BrowserRouter, Route, NavLink, Link, Switch} from 'react-router-dom';
+import Favourites from "./Components/Favourites/Favourites";
+import { connect } from "react-redux";
+
 
 class App extends React.Component {
     state = {
         catImages: [],
     };
-    saveCatImages = (images)=>{
+    saveCatImages = (images) => {
         this.setState({
             catImages: images,
         })
-    }
+    };
+
     render() {
+        const SectionHeader = (this.state.catImages <= 0 ? null : (
+                <div className='sectionHeaderStyle'>
+                    <div ><h4 className='specialInformation'>Jeżeli chcesz lepiej
+                        przyjrzeć się zdjęciu, kliknij je</h4> <h2>Wyniki
+                        wyszukiwania:</h2></div>
+                    <Section catImages={this.state.catImages}/>
+                </div>)
+        );
         return (
-            <div className="App">
-                <Header saveCatImages={this.saveCatImages}/>
-                <Section catImages={this.state.catImages}/>
-                <Footer/>
-            </div>
+            <BrowserRouter basename={window.location.pathname || ''}>
+                <Switch>
+                    <Route exact path="/favourites">
+                        <Favourites/>
+                    </Route>
+                    <Route exact path="/">
+                        <div className="App">
+                            <Header saveCatImages={this.saveCatImages}/>
+                            <Link to="/favourites" className='btnPath'>Ulubione</Link>
+                            {SectionHeader}
+                            <Footer/>
+                        </div>
+                    </Route>
+                </Switch>
+            </BrowserRouter>
         );
     }
 }
 
-export default App;
+const mapStateToProps = (state) => {
+    console.log(state);
+    return {
+        firstSearchDone: state.firstSearchDone // (1)
+    }
+};
+
+export const AppContainer = connect(mapStateToProps, null)(App); // (3)
+export default AppContainer

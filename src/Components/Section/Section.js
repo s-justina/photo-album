@@ -2,19 +2,40 @@
 import React, {Component} from 'react'
 import './Section.css'
 import Carousel, {Modal, ModalGateway} from "react-images";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faThumbsUp } from '@fortawesome/free-solid-svg-icons'
-// < i
-// className = "fas fa-thumbs-up" > < /i>
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
+import {faThumbsUp, faHeart as solidHeart} from '@fortawesome/free-solid-svg-icons'
+import {faHeart as regularHeart} from '@fortawesome/free-regular-svg-icons'
+import ls from 'local-storage';
+import {loadFavouriteImages} from "../../Utils/Functions";
+import swal from 'sweetalert';
+import {connect} from "react-redux";
+import {firstSearch} from "../../redux/actions";
+
 class Section extends Component {
     state = {
         currentImage: "",
         viewerIsOpen: false,
+        imagesLiked: [],
     };
-    renderImg = () => {
-        return this.props.catImages.map((catImage, index) => {
-            return <React.Fragment key={index}>
-            <div
+
+    componentDidMount() {
+        console.log(this.props);
+        if (this.props.isFavouritePage || this.props.firstSearchDone) {
+            return
+        }
+        window.scrollBy(0, window.innerHeight);
+        this.props.firstSearch()
+    }
+
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        const currentY = window.scrollY;
+        window.scrollBy(0, window.innerHeight - currentY);
+    }
+
+    renderImg = (catImages) => {
+        return catImages.map((catImage, index) => {
+            return <div
+                key={index}
                 style={{
                     position: 'relative',
                     backgroundImage: `url(${catImage.src})`,
@@ -23,35 +44,84 @@ class Section extends Component {
                     backgroundPosition: 'center',
                 }}
                 className='albumImageStyle'
-                onClick={()=>{this.setState({viewerIsOpen: true, currentImage: index})}}>
+                onClick={() => {
+                    this.setState({viewerIsOpen: true, currentImage: index})
+                }}>
                 <div className='hiddenStripe'>
                     <div className='PositionOnTheHiddenStripe'>
-                    <p className="tags">
-                        {catImage.tags.split(',').join(' ')}
-                    </p>
-                    <div className='containerForLikes'>
-                    <FontAwesomeIcon className='icon' icon={faThumbsUp} />
-                    <p className='likes'>{catImage.likes}</p>
+                        <p className="tags">
+                            {catImage.tags.split(',').join(' ')}
+                        </p>
+                        <div className='containerForLikes'>
+                            {/*{console.log('be4: ', catImage)}*/}
+                            <FontAwesomeIcon onClick={(e) => this.onHeartClick(e, index, catImage)}
+                                             className='icon iconAnimation'
+                                             icon={(() => {
+                                                 return catImage.isFavourite ? solidHeart : regularHeart
+                                             })()}/>
+                            <FontAwesomeIcon className='icon' icon={faThumbsUp}/>
+                            <p className='likes'>{catImage.likes}</p>
+                        </div>
                     </div>
                 </div>
-                </div>
-                </div>
-            </React.Fragment>
-
+            </div>
         })
 
     };
+
     closeLightbox = () => {
         this.setState({
-            viewerIsOpen:false,
+            viewerIsOpen: false,
         })
+    };
+    onHeartClick = (e, index, catImage) => {
+        e.stopPropagation();
+        const favouriteImages = loadFavouriteImages();
+        if (!catImage.isFavourite) {
+            this.setState({
+                imagesLiked: [...this.state.imagesLiked, index]
+            });
+            catImage.isFavourite = true;
+            ls.set('FavouriteImages', [...favouriteImages, catImage])
+        } else {
+            swal({
+                title: "Jesteś pewien?",
+                text: "Jeśli wciśniesz przycisk 'cancel', spowoduje to że kot ucieknie z ulubionych!",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+            })
+                .then((willDelete) => {
+                    if (willDelete) {
+                        this.setState({
+                            // image liked index
+                            imagesLiked: this.state.imagesLiked.filter((imageLiked) => imageLiked !== index)
+                        });
+                        catImage.isFavourite = false;
+                        const filteredFavouriteImages = favouriteImages.filter(favouriteImage => favouriteImage.src !== catImage.src)
+                        ls.set('FavouriteImages', filteredFavouriteImages);
+                        swal("Poof! Kotek uciekł!", {
+                            icon: "success",
+                        });
+                        setTimeout(() => {
+                            this.props.updateParent()
+                        });
+
+                    } else {
+                        swal("Twój kot jest bezpieczny!");
+                    }
+                });
+
+        }
+
     };
 
     render() {
+        // console.log('rerender: ', this.props.catImages);
         return (
             <React.Fragment>
                 <section className='sectionContainer'>
-                    {this.props.catImages <= 0 ? null : <h2>Wyniki wyszukiwania:</h2>}
+
                     <ModalGateway>
                         {this.state.viewerIsOpen ? (
                             <Modal onClose={this.closeLightbox}>
@@ -67,7 +137,8 @@ class Section extends Component {
                         ) : null}
                     </ModalGateway>
                     <div className='imgContainer'>
-                        {this.props.catImages.length > 0 ? this.renderImg() : null}
+                        {/*{console.log('sadjaslfj: ', this.props.catImages)}*/}
+                        {this.props.catImages.length > 0 ? this.renderImg(this.props.catImages) : null}
                     </div>
                 </section>
             </React.Fragment>
@@ -75,4 +146,18 @@ class Section extends Component {
     }
 }
 
-export default Section
+// export default Section
+
+const mapStateToProps = (state) => {
+    console.log(state);
+    return {
+        firstSearchDone: state.firstSearchDone // (1)
+    }
+};
+const mapDispatchToProps = (dispatch) => {
+    return {
+        firstSearch: () => dispatch(firstSearch()   )
+    }
+};
+export const SectionContainer = connect(mapStateToProps, mapDispatchToProps)(Section); // (3)
+export default SectionContainer

@@ -1,0 +1,60 @@
+/*fonts:
+Button Favourites:
+font-family: 'Lobster', cursive;*/
+.backgroundFavourites{
+    min-height: 100vh;
+    background-image: url("../../assets/wall.jpg");
+    /*overflow: hidden;*/
+}
+
+.clearfix::after{
+    content:"";
+    display:block;
+    clear:both;
+}
+.center{
+    width:100%;
+    position:relative;
+}
+.column{
+    float:left;
+    position: relative;
+    left: 15px;
+
+}
+.logotxt{
+    height: 60px;
+}
+
+.left {
+    position: relative;
+    left: 50px;
+    margin-top:-8px;
+    margin-left: -40px;
+}
+.lowerLogo{
+    margin-top:17px;
+}
+
+.title{
+    margin-top: 5%;
+    text-align: center;
+}
+.btnPath{
+    position: absolute;
+    top:17px;
+    right: 5%;
+    padding: 0.5% 2%;
+    border: 2px dotted #333;
+    font-family: 'Lobster', cursive;
+    font-size: 2vw;
+    text-decoration: none;
+    text-transform: capitalize;
+    color: #333;
+}
+
+.footerAbsolute{
+ height: 50px;
+    width: 100%;
+    background-color: yellow;
+}
