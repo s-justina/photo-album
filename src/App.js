@@ -17,14 +17,18 @@ class App extends React.Component {
             catImages: images,
         })
     };
-
+    updateParent = () => {
+        this.setState({
+            rerender: !this.state.rerender
+        })
+    };
     render() {
-        const SectionHeader = (this.state.catImages <= 0 ? null : (
+        const SectionHeader = (this.props.catImages <= 0 ? null : (
                 <div className='sectionHeaderStyle'>
                     <div ><h4 className='specialInformation'>Jeżeli chcesz lepiej
                         przyjrzeć się zdjęciu, kliknij je</h4> <h2>Wyniki
                         wyszukiwania:</h2></div>
-                    <Section catImages={this.state.catImages}/>
+                    <Section/>
                 </div>)
         );
         return (
@@ -50,7 +54,8 @@ class App extends React.Component {
 const mapStateToProps = (state) => {
     console.log(state);
     return {
-        firstSearchDone: state.firstSearchDone // (1)
+        firstSearchDone: state.firstSearchDone, // (1)
+        catImages: state.catImages,
     }
 };
 

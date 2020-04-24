@@ -19,7 +19,7 @@ class Section extends Component {
     };
 
     componentDidMount() {
-        console.log(this.props);
+        console.log('halo halo',this.props);
         if (this.props.isFavouritePage || this.props.firstSearchDone) {
             return
         }
@@ -98,7 +98,7 @@ class Section extends Component {
                             imagesLiked: this.state.imagesLiked.filter((imageLiked) => imageLiked !== index)
                         });
                         catImage.isFavourite = false;
-                        const filteredFavouriteImages = favouriteImages.filter(favouriteImage => favouriteImage.src !== catImage.src)
+                        const filteredFavouriteImages = favouriteImages.filter(favouriteImage => favouriteImage.src !== catImage.src);
                         ls.set('FavouriteImages', filteredFavouriteImages);
                         swal("Poof! Kotek uciekł!", {
                             icon: "success",
@@ -117,7 +117,7 @@ class Section extends Component {
     };
 
     render() {
-        // console.log('rerender: ', this.props.catImages);
+        console.log('rerender: ', this.props.catImages);
         return (
             <React.Fragment>
                 <section className='sectionContainer'>
@@ -149,9 +149,9 @@ class Section extends Component {
 // export default Section
 
 const mapStateToProps = (state) => {
-    console.log(state);
     return {
-        firstSearchDone: state.firstSearchDone // (1)
+        firstSearchDone: state.firstSearchDone, // (1)
+        catImages: state.catImages,
     }
 };
 const mapDispatchToProps = (dispatch) => {
