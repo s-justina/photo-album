@@ -5,11 +5,9 @@ import Carousel, {Modal, ModalGateway} from "react-images";
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {faThumbsUp, faHeart as solidHeart} from '@fortawesome/free-solid-svg-icons'
 import {faHeart as regularHeart} from '@fortawesome/free-regular-svg-icons'
-import ls from 'local-storage';
-import {loadFavouriteImages} from "../../Utils/Functions";
 import swal from 'sweetalert';
 import {connect} from "react-redux";
-import {firstSearch} from "../../redux/actions";
+import {addToFavourites, firstSearch, removeFromFavourites} from "../../redux/actions";
 
 class Section extends Component {
     state = {
@@ -19,7 +17,6 @@ class Section extends Component {
     };
 
     componentDidMount() {
-        console.log('halo halo',this.props);
         if (this.props.isFavouritePage || this.props.firstSearchDone) {
             return
         }
@@ -33,7 +30,7 @@ class Section extends Component {
     }
 
     renderImg = (catImages) => {
-        return catImages.map((catImage, index) => {
+        return catImages.length > 0 && catImages.map((catImage, index) => {
             return <div
                 key={index}
                 style={{
@@ -53,7 +50,6 @@ class Section extends Component {
                             {catImage.tags.split(',').join(' ')}
                         </p>
                         <div className='containerForLikes'>
-                            {/*{console.log('be4: ', catImage)}*/}
                             <FontAwesomeIcon onClick={(e) => this.onHeartClick(e, index, catImage)}
                                              className='icon iconAnimation'
                                              icon={(() => {
@@ -76,13 +72,8 @@ class Section extends Component {
     };
     onHeartClick = (e, index, catImage) => {
         e.stopPropagation();
-        const favouriteImages = loadFavouriteImages();
         if (!catImage.isFavourite) {
-            this.setState({
-                imagesLiked: [...this.state.imagesLiked, index]
-            });
-            catImage.isFavourite = true;
-            ls.set('FavouriteImages', [...favouriteImages, catImage])
+            this.props.addToFavourites(catImage);
         } else {
             swal({
                 title: "Jesteś pewien?",
@@ -93,20 +84,11 @@ class Section extends Component {
             })
                 .then((willDelete) => {
                     if (willDelete) {
-                        this.setState({
-                            // image liked index
-                            imagesLiked: this.state.imagesLiked.filter((imageLiked) => imageLiked !== index)
-                        });
-                        catImage.isFavourite = false;
-                        const filteredFavouriteImages = favouriteImages.filter(favouriteImage => favouriteImage.src !== catImage.src);
-                        ls.set('FavouriteImages', filteredFavouriteImages);
+                        this.props.removeFromFavourites(catImage);
+
                         swal("Poof! Kotek uciekł!", {
                             icon: "success",
                         });
-                        setTimeout(() => {
-                            this.props.updateParent()
-                        });
-
                     } else {
                         swal("Twój kot jest bezpieczny!");
                     }
@@ -117,7 +99,6 @@ class Section extends Component {
     };
 
     render() {
-        console.log('rerender: ', this.props.catImages);
         return (
             <React.Fragment>
                 <section className='sectionContainer'>
@@ -137,8 +118,7 @@ class Section extends Component {
                         ) : null}
                     </ModalGateway>
                     <div className='imgContainer'>
-                        {/*{console.log('sadjaslfj: ', this.props.catImages)}*/}
-                        {this.props.catImages.length > 0 ? this.renderImg(this.props.catImages) : null}
+                        {this.renderImg(this.props.isFavouritePage ? this.props.favouriteImages : this.props.catImages)}
                     </div>
                 </section>
             </React.Fragment>
@@ -146,7 +126,6 @@ class Section extends Component {
     }
 }
 
-// export default Section
 
 const mapStateToProps = (state) => {
     return {
@@ -156,7 +135,9 @@ const mapStateToProps = (state) => {
 };
 const mapDispatchToProps = (dispatch) => {
     return {
-        firstSearch: () => dispatch(firstSearch()   )
+        firstSearch: () => dispatch(firstSearch()   ),
+        addToFavourites: (catImage)=> dispatch(addToFavourites(catImage)),
+        removeFromFavourites: (catImage)=> dispatch(removeFromFavourites(catImage)),
     }
 };
 export const SectionContainer = connect(mapStateToProps, mapDispatchToProps)(Section); // (3)

@@ -2,6 +2,8 @@ import axios from "axios";
 
 export const FIRST_SEARCH = "FIRST_SEARCH";
 export const FETCH_DATA = 'FETCH_DATA';
+export const ADD_FAVOURITES = 'ADD_FAVOURITES';
+export const REMOVE_FAVOURITES = 'REMOVE_FAVOURITES';
 
 export const firstSearch = () => {
     return {
@@ -11,7 +13,6 @@ export const firstSearch = () => {
 };
 export const fetchData = (url) => {
     return dispatch => {
-        console.log(url);
         axios.get(url)
             .then(response => {
                 const catImages = response.data.hits.map(hit => {
@@ -23,7 +24,6 @@ export const fetchData = (url) => {
                         likes: hit.likes,
                     }
                 });
-                console.log('2', catImages)
                 dispatch(dispatchData(catImages));
             }).catch(e => console.warn('Error: ',e))
     }
@@ -32,5 +32,19 @@ export const dispatchData = (catImages) => {
     return {
         type: FETCH_DATA,
         payload: catImages
+    }
+};
+
+export const addToFavourites = (catImage)=>{
+    return {
+        type: ADD_FAVOURITES,
+        payload: catImage,
+    }
+};
+
+export const removeFromFavourites = (catImage)=>{
+    return {
+        type: REMOVE_FAVOURITES,
+        payload: catImage,
     }
 };

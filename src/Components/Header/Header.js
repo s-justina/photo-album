@@ -26,15 +26,7 @@ class Header extends Component {
         if (this.state.value.length !== 0) {
             const randomPage = Math.floor(Math.random() * 10 + 1);
             const url = `https://pixabay.com/api/?key=${API_KEY}&q=${this.state.value}&image_type=photo&page=${randomPage}`;
-            console.log('1', url)
             this.props.fetchData(url);
-
-            //         this.props.saveCatImages(catImages);
-            //         this.setState({
-            //             searching: false,
-            //             active: false
-            //         })
-            //     });
             this.setState({
                 searching: true,
             })
@@ -42,9 +34,6 @@ class Header extends Component {
 
     };
     handleEnter = (e) => {
-        // if (e.keyCode === 13) {
-        //     document.getElementById("myBtn").click();
-        // }
         if (this.state.value.length !== 0 && e.keyCode === 13) {
             this.handleClick()
         }
