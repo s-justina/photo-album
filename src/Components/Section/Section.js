@@ -26,6 +26,9 @@ class Section extends Component {
 
     componentDidUpdate(prevProps, prevState, snapshot) {
         const currentY = window.scrollY;
+        if(currentY > window.innerHeight || this.props.isFavouritePage){
+            return
+        }
         window.scrollBy(0, window.innerHeight - currentY);
     }
 

@@ -10,9 +10,9 @@ const mapStateToProps = (state) => {
 };
 const mapDispatchToProps = (dispatch) => {
     return {
-        firstSearch: () => dispatch(firstSearch()   ),
-        addToFavourites: (catImage)=> dispatch(addToFavourites(catImage)),
-        removeFromFavourites: (catImage)=> dispatch(removeFromFavourites(catImage)),
+        firstSearch: () => dispatch(firstSearch()),
+        addToFavourites: (catImage) => dispatch(addToFavourites(catImage)),
+        removeFromFavourites: (catImage) => dispatch(removeFromFavourites(catImage)),
     }
 };
 export default connect(mapStateToProps, mapDispatchToProps)(Section); // (3)

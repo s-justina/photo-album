@@ -15,9 +15,10 @@ export const fetchData = (url) => {
     return dispatch => {
         axios.get(url)
             .then(response => {
+                console.log(response.data);
                 const catImages = response.data.hits.map(hit => {
                     return {
-                        src: hit.previewURL,
+                        src: hit.largeImageURL,
                         height: 1,
                         width: 1,
                         tags: hit.tags,
