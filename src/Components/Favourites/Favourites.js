@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import './Favourites.css'
 import {Link} from "react-router-dom";
-import Section from "../Section/Section";
+import Section from "../../Containers/Section";
 import logoText from "../../assets/love-cat.svg";
 import logoImage from "../../assets/cat-logo.svg";
 import {loadFavouriteImages} from "../../Utils/Functions";
@@ -20,7 +20,6 @@ class Favourites extends Component {
 
     render() {
         const favouriteImages = loadFavouriteImages();
-
         return (
             <React.Fragment>
                 <div  className='backgroundFavourites'>
@@ -37,7 +36,7 @@ class Favourites extends Component {
 
                 </div>
                 <h2 className='title'>Twoje ulubione</h2>
-                <Section isFavouritePage={true} updateParent={this.updateParent} catImages={favouriteImages}></Section>
+                <Section isFavouritePage={true} favouriteImages={favouriteImages}/>
                 <Footer/>
                 </div>
             </React.Fragment>

@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
 import Header from "./Components/Header/Header";
-import Section from "./Components/Section/Section";
+import Section from "./Containers/Section";
 import Footer from "./Components/Footer/Footer";
 import {BrowserRouter, Route, NavLink, Link, Switch} from 'react-router-dom';
 import Favourites from "./Components/Favourites/Favourites";
@@ -19,12 +19,12 @@ class App extends React.Component {
     };
 
     render() {
-        const SectionHeader = (this.state.catImages <= 0 ? null : (
+        const SectionHeader = (this.props.catImages <= 0 ? null : (
                 <div className='sectionHeaderStyle'>
                     <div ><h4 className='specialInformation'>Jeżeli chcesz lepiej
                         przyjrzeć się zdjęciu, kliknij je</h4> <h2>Wyniki
                         wyszukiwania:</h2></div>
-                    <Section catImages={this.state.catImages}/>
+                    <Section/>
                 </div>)
         );
         return (
@@ -48,9 +48,9 @@ class App extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-    console.log(state);
     return {
-        firstSearchDone: state.firstSearchDone // (1)
+        firstSearchDone: state.firstSearchDone, // (1)
+        catImages: state.catImages,
     }
 };
 

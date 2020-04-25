@@ -10,7 +10,7 @@ font-family: 'Liu Jian Mao Cao', cursive;
     position:relative;
     overflow: hidden;
 }
-.headerBackground{
+.headerBackgroundMain{
     position: absolute;
     z-index: -1;
     height: 100%;
@@ -19,7 +19,7 @@ font-family: 'Liu Jian Mao Cao', cursive;
     background-size: cover;
     background-repeat: no-repeat;
     background-attachment: fixed;
-    opacity: 50%;
+    opacity: 0.5;
 }
 .column{
     float:left;
@@ -81,7 +81,7 @@ h2.albumTitle{
     font-size: 2vw;
     background-color:black;
     color: #888;
-    opacity: 30%;
+    opacity: 0.3;
     transition: 0.2s;
 }
 .searcher:hover{
