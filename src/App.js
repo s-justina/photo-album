@@ -17,11 +17,7 @@ class App extends React.Component {
             catImages: images,
         })
     };
-    updateParent = () => {
-        this.setState({
-            rerender: !this.state.rerender
-        })
-    };
+
     render() {
         const SectionHeader = (this.props.catImages <= 0 ? null : (
                 <div className='sectionHeaderStyle'>

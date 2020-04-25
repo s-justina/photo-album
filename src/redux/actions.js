@@ -15,7 +15,6 @@ export const fetchData = (url) => {
     return dispatch => {
         axios.get(url)
             .then(response => {
-                console.log(response.data);
                 const catImages = response.data.hits.map(hit => {
                     return {
                         src: hit.largeImageURL,
