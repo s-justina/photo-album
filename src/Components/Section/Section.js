@@ -127,18 +127,4 @@ class Section extends Component {
 }
 
 
-const mapStateToProps = (state) => {
-    return {
-        firstSearchDone: state.firstSearchDone, // (1)
-        catImages: state.catImages,
-    }
-};
-const mapDispatchToProps = (dispatch) => {
-    return {
-        firstSearch: () => dispatch(firstSearch()   ),
-        addToFavourites: (catImage)=> dispatch(addToFavourites(catImage)),
-        removeFromFavourites: (catImage)=> dispatch(removeFromFavourites(catImage)),
-    }
-};
-export const SectionContainer = connect(mapStateToProps, mapDispatchToProps)(Section); // (3)
-export default SectionContainer
+export default Section

@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import './Favourites.css'
 import {Link} from "react-router-dom";
-import Section from "../Section/Section";
+import Section from "../../Containers/Section";
 import logoText from "../../assets/love-cat.svg";
 import logoImage from "../../assets/cat-logo.svg";
 import {loadFavouriteImages} from "../../Utils/Functions";

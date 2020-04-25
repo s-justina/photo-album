@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
 import Header from "./Components/Header/Header";
-import Section from "./Components/Section/Section";
+import Section from "./Containers/Section";
 import Footer from "./Components/Footer/Footer";
 import {BrowserRouter, Route, NavLink, Link, Switch} from 'react-router-dom';
 import Favourites from "./Components/Favourites/Favourites";
