@@ -4,6 +4,8 @@ export const FIRST_SEARCH = "FIRST_SEARCH";
 export const FETCH_DATA = 'FETCH_DATA';
 export const ADD_FAVOURITES = 'ADD_FAVOURITES';
 export const REMOVE_FAVOURITES = 'REMOVE_FAVOURITES';
+export const SHOW_SPINNER = 'SHOW_SPINNER';
+export const HIDE_SPINNER = 'HIDE_SPINNER';
 
 export const firstSearch = () => {
     return {
@@ -13,6 +15,7 @@ export const firstSearch = () => {
 };
 export const fetchData = (url) => {
     return dispatch => {
+        dispatch(showSpinner());
         axios.get(url)
             .then(response => {
                 const catImages = response.data.hits.map(hit => {
@@ -25,6 +28,7 @@ export const fetchData = (url) => {
                     }
                 });
                 dispatch(dispatchData(catImages));
+                dispatch(hideSpinner());
             }).catch(e => console.warn('Error: ',e))
     }
 };
@@ -32,6 +36,17 @@ export const dispatchData = (catImages) => {
     return {
         type: FETCH_DATA,
         payload: catImages
+    }
+};
+export const showSpinner = () => {
+    return {
+        type: SHOW_SPINNER,
+        payload: true,
+    }
+};export const hideSpinner = () => {
+    return {
+        type: HIDE_SPINNER,
+        payload: false,
     }
 };
 

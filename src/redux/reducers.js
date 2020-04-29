@@ -1,10 +1,11 @@
-import {ADD_FAVOURITES, FETCH_DATA, FIRST_SEARCH, REMOVE_FAVOURITES} from "./actions";
+import {ADD_FAVOURITES, FETCH_DATA, FIRST_SEARCH, REMOVE_FAVOURITES, SHOW_SPINNER, HIDE_SPINNER} from "./actions";
 import ls from "local-storage";
 import {saveFavouriteImages} from "../Utils/Functions";
 
 const initialState = {
     firstSearchDone: false,
     catImages: [],
+    loadingImages: false,
 };
 const reducer = (state = initialState, action) => {
     switch (action.type) {
@@ -17,6 +18,12 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 catImages: action.payload
+            };
+        case SHOW_SPINNER:
+        case HIDE_SPINNER:
+            return{
+                ...state,
+                loadingImages: action.type === SHOW_SPINNER,
             };
         case ADD_FAVOURITES:
         case REMOVE_FAVOURITES:

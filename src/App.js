@@ -6,7 +6,14 @@ import Footer from "./Components/Footer/Footer";
 import {BrowserRouter, Route, NavLink, Link, Switch} from 'react-router-dom';
 import Favourites from "./Components/Favourites/Favourites";
 import { connect } from "react-redux";
+import { css } from "@emotion/core";
+import PacmanLoader from "react-spinners/PacmanLoader";
 
+const override = css`
+  display: block;
+  margin: 0 auto;
+  border-color: red;
+`;
 
 class App extends React.Component {
     state = {
@@ -36,6 +43,12 @@ class App extends React.Component {
                     <Route exact path="/">
                         <div className="App">
                             <Header saveCatImages={this.saveCatImages}/>
+                            {this.props.loadingImages ? <div className='spinnerContainer'>
+                                <PacmanLoader css={override}
+                                              size={20}
+                                              color={"#123abc"}
+                                              loading={this.props.loadingImages}/>
+                            </div> : null }
                             <Link to="/favourites" className='btnPath'>Ulubione</Link>
                             {SectionHeader}
                             <Footer/>
@@ -51,6 +64,7 @@ const mapStateToProps = (state) => {
     return {
         firstSearchDone: state.firstSearchDone, // (1)
         catImages: state.catImages,
+        loadingImages: state.loadingImages,
     }
 };
 

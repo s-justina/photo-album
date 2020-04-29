@@ -1,7 +1,13 @@
 .App {
   text-align: center;
 }
-
+/*.pacmanLoader{*/
+/*  !*display: flex;*!*/
+/*  !*top: 50%;*!*/
+/*  !*left: 50%;*!*/
+/*  !*transform: translate(-50%,-50%) scale(-1);*!*/
+/*font-size: 20px;*/
+/*}*/
 .sectionHeaderStyle{
   margin: 0;
   background-image: url("./assets/wall.jpg");
@@ -14,4 +20,12 @@
   color: darkred;
   font-size: 2vw;
   line-height: 4vw;
+}
+
+.spinnerContainer{
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1;
 }
