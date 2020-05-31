@@ -22,4 +22,4 @@ Project is using netlify service for CI/CD.
 
 ### Live demo
 
-Open [LIVE DEMO](https://hopeful-wescoff-6b1589.netlify.app/) to view it in the browser.
+Open [LIVE DEMO](https://zealous-raman-ecaf9c.netlify.app/) to view it in the browser.
