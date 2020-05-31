@@ -6,8 +6,8 @@ import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {faThumbsUp, faHeart as solidHeart} from '@fortawesome/free-solid-svg-icons'
 import {faHeart as regularHeart} from '@fortawesome/free-regular-svg-icons'
 import swal from 'sweetalert';
-import {connect} from "react-redux";
-import {addToFavourites, firstSearch, removeFromFavourites} from "../../redux/actions";
+import PacmanLoader from "react-spinners/PacmanLoader";
+
 
 class Section extends Component {
     state = {
@@ -26,7 +26,7 @@ class Section extends Component {
 
     componentDidUpdate(prevProps, prevState, snapshot) {
         const currentY = window.scrollY;
-        if(currentY > window.innerHeight || this.props.isFavouritePage){
+        if (currentY > window.innerHeight || this.props.isFavouritePage) {
             return
         }
         window.scrollBy(0, window.innerHeight - currentY);
@@ -101,6 +101,10 @@ class Section extends Component {
 
     };
 
+    displayCorrectImages = () => {
+        return this.props.isFavouritePage ? this.props.favouriteImages : this.props.catImages
+    };
+
     render() {
         return (
             <React.Fragment>
@@ -111,17 +115,20 @@ class Section extends Component {
                             <Modal onClose={this.closeLightbox}>
                                 <Carousel
                                     currentIndex={this.state.currentImage}
-                                    views={this.props.catImages.map(x => ({
-                                        ...x,
-                                        srcset: x.srcSet,
-                                        caption: x.title
-                                    }))}
+                                    views={this.displayCorrectImages().map(x => {
+                                        console.log('image: ',x);
+                                        return {
+                                            ...x,
+                                            srcset: x.srcSet,
+                                            caption: x.tags
+                                        }
+                                    })}
                                 />
                             </Modal>
                         ) : null}
                     </ModalGateway>
                     <div className='imgContainer'>
-                        {this.renderImg(this.props.isFavouritePage ? this.props.favouriteImages : this.props.catImages)}
+                        {this.renderImg(this.displayCorrectImages())}
                     </div>
                 </section>
             </React.Fragment>
