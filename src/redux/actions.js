@@ -29,7 +29,10 @@ export const fetchData = (url) => {
                 });
                 dispatch(dispatchData(catImages));
                 dispatch(hideSpinner());
-            }).catch(e => console.warn('Error: ',e))
+            }).catch(e => {
+                alert('Network error: Could not fetch images data!. Please try again.');
+                console.warn('Error: ',e)
+        })
     }
 };
 export const dispatchData = (catImages) => {

@@ -9,7 +9,7 @@ export const loadFavouriteImages = () => {
     } else {
         return data
     }
-}
+};
 
 export const saveFavouriteImages = (catImage, type) => {
     let data = loadFavouriteImages();
@@ -21,4 +21,4 @@ export const saveFavouriteImages = (catImage, type) => {
 
     ls.set('FavouriteImages', data);
 
-}
+};
